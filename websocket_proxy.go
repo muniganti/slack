@@ -9,6 +9,7 @@ import (
 	"net/url"
 	"os"
 	"strings"
+	"fmt"
 
 	"golang.org/x/net/websocket"
 )
@@ -65,6 +66,7 @@ func websocketProxyDial(urlString, origin string) (ws *websocket.Conn, err error
 	switch config.Location.Scheme {
 	case "ws":
 	case "wss":
+		fmt.Printf(">>>> VM: Attempting a TLS Connection\n")
 		tlsClient := tls.Client(client, &tls.Config{
 			ServerName: strings.Split(config.Location.Host, ":")[0],
 		})
